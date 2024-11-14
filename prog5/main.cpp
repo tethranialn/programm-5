@@ -77,7 +77,6 @@ void main(void)
 	}
 	if (a < b)a = b;
 	if (b < a)b = a;
-	cout << a << b;
 	f.close();g.close();
 }
 
