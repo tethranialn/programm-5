@@ -13,6 +13,28 @@
 using namespace std;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const unsigned N = 20, M = N;
 
 bool CalcSize(char Name[20], unsigned &a, unsigned *b, fstream& g);
@@ -143,5 +165,5 @@ int Process(float A[N][M], unsigned a, unsigned b)
 {
 	return 0;
 }
-
+*/
 
