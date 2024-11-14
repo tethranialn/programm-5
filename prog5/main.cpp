@@ -11,101 +11,7 @@
 #include <math.h>
 
 using namespace std;
-const unsigned N = 20, M = N; fstream f, g; unsigned a, b, i = 0, j = 0, h = 0, o = 0; char s[] = "Hello"; float tmp, A[N][M];
-void OutStroke(unsigned b, fstream& g, float A[M]);
-void Out1(float A[N][M], unsigned a, unsigned b, fstream& g);
-void main(void)
-{
-	f.open("in.txt", ios::out);
-	if (!f.is_open()) g << "File not opened";
-	else
-	{
-		f >> a;
-		if ((f.eof()) || (a <= 0))
-		{
-			a = 0;
-			b = 0;
-		}
-		else if (a > N) a = N;
-		b = a;
-		f << noskipws;
-		while (!f.eof() && s != "\n")
-		{
-			f << skipws;
-			f >> tmp;
-			f << noskipws;
-			if (f.eof())
-			{
-				h++;
-				if (b > o) b = o;
-				else
-				{
-					o++;
-					f >> s;
-					while (s == " " || s == "\t" && s != "\n" && !f.eof())
-					{
-						f >> s;
-						if (f.eof() || s == "\n")
-						{
-							h++;
-							if (b > o) b = o;
-						}
-					}
-					if (s != "\n" || !f.eof()) f.seekg(-1, ios::cur);
-					else if (s == "\n")
-					{
-						h++;
-						if (b > o)
-						{
-							b = o;
-							o = 0;
-						}
-					}
-				}
-			}
-			if (h < a)a = h;
-		}
-	}
-	f.close();
-	if (a < b)a = b;
-	if (b < a)b = a;
-	g.open("out.txt", ios::out);
-	Out1(A, a, b, g);
-}
-void OutStroke(unsigned b, fstream& g, float A[M])
-{
-	unsigned i;
-	for (i = 0; i < b; i++) g << A[i] << " ";
-	g << "\n";
-}
-void Out1(float A[N][M], unsigned a, unsigned b, fstream& g)
-{
-	unsigned i;
-	for (i = 0; i < a; i++) OutStroke(b, g, A[i]);
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 const unsigned N = 20, M = N;
 
 bool CalcSize(char Name[20], unsigned &a, unsigned *b, fstream& g);
@@ -236,5 +142,5 @@ int Process(float A[N][M], unsigned a, unsigned b)
 {
 	return 0;
 }
-*/
+
 
