@@ -9,11 +9,73 @@
 #include <fstream>
 #include <locale>
 #include <math.h>
-
 using namespace std;
-
 const unsigned N = 20, M = N;
+void main(void)
+{
+	setlocale(LC_ALL, "russian");
+	fstream g, f; float A[N][M]; unsigned a, b, h = 0, size = 0, i = 0, j = 0; char s[] = "Hello"; float tmp;
+	g.open("out.txt", ios::out);
+	f.open("in.txt", ios::in);
+	if (!f.is_open())
+	{
+		g << "file not opened";
+	}
+	else
+	{
+		f >> a;
+		if ((f.eof()) || (a <= 0))
+		{
+			a = 0;
+			b = 0;
+		}
+		else if (a > N) a = N;
+		b = a;
+		f << noskipws;
+		while (!f.eof() && s != "\n")
+		{
+			f << skipws;
+			f >> tmp;
+			f << noskipws;
+			if (f.eof())
+			{
+				h++;
+				if (b > size) b = size;
+			}
+			else
+			{
+				size++;
+				f >> s;
+				while (s == " " || s == "\t" && s != "\n" && !f.eof())
+				{
+					f >> s;
+					if (f.eof() || s == "\n")
+					{
+						h++;
+						if (b > size) b = size;
+					}
+				}
+				if (s != "\n" || !f.eof()) f.seekg(-1, ios::cur);
+				else if (s == "\n")
+				{
+					h++;
+					if (b > size)
+					{
+						b = size;
+						size = 0;
+					}
+				}
+			}
+			if (h < a)a = h;
+		}
+	}
+	f.close();g.close();
+	if (a < b)a = b;
+	if (b < a)b = a;
+	cout << a << b;
+}
 
+/*
 bool CalcSize(char Name[20], unsigned &a, unsigned *b, fstream& g);
 bool InpF(char Name[20], unsigned a, unsigned b, float A[N][M], fstream &g);
 void Out1(float A[N][M], unsigned a, unsigned b, fstream &g);
@@ -142,5 +204,5 @@ int Process(float A[N][M], unsigned a, unsigned b)
 {
 	return 0;
 }
-
+*/
 
