@@ -275,22 +275,5 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 			tmp3++;
 		}
 	} while (i!=a);
-	/*
-	tmp = A[i][j];
-	for (x = 0; j > 0; x++)
-	{
-		j = m - x;
-		while (i < k)
-		{
-			while (j < a)
-			{
-				j++;
-				if (tmp < A[i][j]) tmp = A[i][j];
-			}
-			i++;
-		}
-		result = tmp;
-	}
-	*/
 	return result;
 }
