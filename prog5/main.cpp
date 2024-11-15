@@ -59,7 +59,7 @@ void main(void)
 				cout << "			[x][ ][ ][ ][ ][ ][ ]\n\n";
 				g << "Автор: Чучалин Иван Валентинович\tГруппа : 4354\tВерсия программы : 5\nДата начала : 07.11.24\tЗавершения : 00.11.24\n";
 				g << "Задание: Найти наибольший элемент заштрихованной области таблицы вида:\n\n";
-				g << "				          m\n";
+				g << "		          m\n";
 				g << "		[ ][ ][ ][x][x][x][x] k\n";
 				g << "		[ ][ ][x][x][x][x][ ]\n";
 				g << "		[ ][x][x][x][x][ ][ ]\n";
@@ -89,7 +89,7 @@ void main(void)
 					}
 					else
 					{
-						g << "Введенное m: " << m << "\tВведенное k: " << k << "\n";
+						g << "Введенное m: " << m + 1 << "\tВведенное k: " << k + 1 << "\n";
 						Process(A, a, b, m, k, result);
 						cout << "Результат обработки массива: " << result << "\n";
 						g << "Результат обработки массива: " << result << "\n";
@@ -220,7 +220,11 @@ bool InM(int& m,unsigned a, fstream& g)
 		g << "Введенное m: " << m << "\tЗначение m не может быть больше колличества столбцов.\n";
 		return false;
 	}
-	else return true;
+	else
+	{
+		m--;
+		return true;
+	}
 }
 bool InK(int& k, unsigned a, fstream& g)
 {
@@ -236,11 +240,29 @@ bool InK(int& k, unsigned a, fstream& g)
 		g << "Введенное k: " << k << "\tЗначение k не может быть больше колличества строк.\n";
 		return false;
 	}
-	else return true;
+	else
+	{
+		k--;
+		return true;
+	}
 }
 int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	unsigned i, j;
-	result = 1982370;
+	unsigned i = 0, j = m, x; float tmp;
+	tmp = A[i][j];
+	for (x = 0; j > 0; x++)
+	{
+		j = m - x;
+		while (i < k)
+		{
+			while (j < a)
+			{
+				j++;
+				if (tmp < A[i][j]) tmp = A[i][j];
+			}
+			i++;
+		}
+		result = tmp;
+	}
 	return result;
 }
