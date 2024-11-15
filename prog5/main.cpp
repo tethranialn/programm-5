@@ -222,7 +222,7 @@ bool InM(int& m,unsigned a, fstream& g)
 	}
 	else
 	{
-		m--;
+		//m--;
 		return true;
 	}
 }
@@ -242,13 +242,23 @@ bool InK(int& k, unsigned a, fstream& g)
 	}
 	else
 	{
-		k--;
+		//k--;
 		return true;
 	}
 }
 int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	unsigned i = 0, j = m, x; float tmp;
+	unsigned i = 0, j = m; float tmp, B[100]; int x = -1;
+	
+	for (i = 0; i < k; i++)
+	{
+		for (j = m; j < a; j++)
+		{
+			x++;
+			B[x] = A[i][j];
+		}
+	}
+	/*
 	tmp = A[i][j];
 	for (x = 0; j > 0; x++)
 	{
@@ -264,5 +274,6 @@ int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 		}
 		result = tmp;
 	}
+	*/
 	return result;
 }
