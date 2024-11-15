@@ -16,13 +16,13 @@ bool CalcSize( unsigned &a, unsigned *b, fstream& g);
 bool InpF( unsigned a, unsigned b, float A[N][M], fstream &g);
 void Out(float A[N][M], unsigned a, unsigned b, fstream &g);
 void OutStroke(unsigned b, fstream &g, float A[M]);
-int Process(float A[N][M], unsigned a, unsigned b, int m, int k);
+int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result);
 bool InM(int& m, unsigned a, fstream& g);
 bool InK(int& k, unsigned a, fstream& g);
 void main(void)
 {
 	setlocale(LC_ALL, "russian");
-	fstream g; float A[N][M]; unsigned a, b; char Name[20]; int m, k;
+	fstream g; float A[N][M], result = 0; unsigned a, b; char Name[20]; int m, k;
 	g.open("out.txt", ios::out);
 	if (!g.is_open()) cout << "File is not opened\n";
 	else
@@ -67,7 +67,9 @@ void main(void)
 					else
 					{
 						g << "Введенное m: " << m << "\tВведенное k: " << k << "\n";
-						Process(A, a, b, m, k);
+						Process(A, a, b, m, k, result);
+						cout << "Результат обработки массива: " << result << "\n";
+						g << "Результат обработки массива: " << result << "\n";
 					}
 				}
 			}
@@ -170,11 +172,6 @@ bool InpF(unsigned a, unsigned b, float A[N][M], fstream& g)
 	f.close();
 	return true;
 }
-int Process(float A[N][M], unsigned a, unsigned b, int m, int k)
-{
-	unsigned i, j; 
-	return 0;
-}
 bool InM(int& m,unsigned a, fstream& g)
 {
 	if (m-1 < 0)
@@ -207,5 +204,12 @@ bool InK(int& k, unsigned a, fstream& g)
 	}
 	else return true;
 }
+int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
+{
+	unsigned i, j;
+	result = 1982370;
+	return result;
+}
+
 
 
