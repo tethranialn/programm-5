@@ -3,7 +3,6 @@
   Автор: Чучалин Иван Валентинович  Группа: 4354  Версия программы: 5
   Дата начала: 07.11.24  Завершения: 00.11.24
 */
-
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -11,9 +10,8 @@
 #include <math.h>
 using namespace std;
 const unsigned N = 20, M = N;
-
-bool CalcSize( unsigned &a, unsigned *b, fstream& g);
-bool InpF( unsigned a, unsigned b, float A[N][M], fstream &g);
+bool CalcSize(unsigned &a, unsigned *b, fstream& g, int& raz);
+bool InpF(unsigned a, unsigned b, float A[N][M], fstream &g);
 void Out(float A[N][M], unsigned a, unsigned b, fstream &g);
 void OutStroke(unsigned b, fstream &g, float A[M]);
 int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result);
@@ -22,12 +20,12 @@ bool InK(int& k, unsigned a, fstream& g);
 void main(void)
 {
 	setlocale(LC_ALL, "russian");
-	fstream g; float A[N][M], result = 0; unsigned a, b; char Name[20]; int m, k;
+	fstream g; float A[N][M], result = 0; unsigned a, b; char Name[20]; int m, k, raz = 0;
 	g.open("out.txt", ios::out);
 	if (!g.is_open()) cout << "File is not opened\n";
 	else
 	{
-		if (CalcSize( a, &b, g) == false)
+		if (CalcSize( a, &b, g, raz) == false)
 		{
 			cout << "Не удалось считать размер\n";
 			g << "Не удалось считать размер\n";
@@ -44,10 +42,10 @@ void main(void)
 				cout << "При вводе параметров m и k учитывайте, что исчисление столбцов и строк начинается с единицы.\n";
 				cout << "Также не забывайте, что вводимые значения должны быть целыми.\n";
 				g << "Задание:\nАвтор: Чучалин Иван Валентинович\tГруппа : 4354\tВерсия программы : 5\nДата начала : 07.11.24\tЗавершения : 00.11.24\n";
-				g << "При вводе параметров m и k учитывайте, что исчисление столбцов и строк начинается с единицы.\n";
-				g << "Также не забывайте, что вводимые значения должны быть целыми.\n";
+				g << "Указанная размерность матрицы: " << raz << "*" << raz << "\n";
 				g << "Ниже представлена обработанная матрица:\n";
 				Out(A, a, b, g);
+				g << "Реальная размерность матрицы: " << a << "*" << a << ".\n";
 				cout << "Введите m\n";
 				cin >> m;
 				if (InM(m, a, g) == false)
@@ -88,7 +86,7 @@ void Out(float A[N][M], unsigned a, unsigned b, fstream& g)
 	unsigned i;
 	for (i = 0; i < a; i++) OutStroke(b, g, A[i]);
 }
-bool CalcSize( unsigned& a, unsigned* b, fstream& g)
+bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 {
 	fstream f; unsigned h = 0, size = 0; char s = '!'; float tmp;
 	f.open("in.txt", ios::in);
@@ -100,13 +98,20 @@ bool CalcSize( unsigned& a, unsigned* b, fstream& g)
 	}
 	else
 	{
-		f >> a;
-		if ((f.eof()) || (a <= 0))
+		f >> tmp;
+		if ((f.eof()) || (tmp <= 0))
 		{
 			a = 0;
 			*b = 0;
+			raz = a;
 		}
-		else if (a > N) a = N;
+		else if (tmp > N)
+		{
+			a = N;
+			raz = a;
+		}
+		else a = tmp;
+		raz = a;
 		*b = a;
 		while (!f.eof() && s != '\n')
 		{
@@ -152,25 +157,29 @@ bool CalcSize( unsigned& a, unsigned* b, fstream& g)
 		}
 		if (a < *b)a = *b;
 		if (*b < a)*b = a;
-		return true;
 		f.close();
+		return true;
 	}
 }
 bool InpF(unsigned a, unsigned b, float A[N][M], fstream& g)
 {
-	fstream f; unsigned i, j; char s = '!';
+	fstream f; unsigned i, j; char s = '!'; float tmp;
 	f.open("in.txt", ios::in);
 	if (f.eof()) return false;
-	for (i = 0; i < a; i++)
+	else
 	{
-		f << skipws;
-		for (j = 0; j < b; j++) f >> A[i][j];
-		f << noskipws;
-		s = '!';
-		while (!f.eof() && s != '\n') f >> s;
+		f >> tmp;
+		for (i = 0; i < a; i++)
+		{
+			f << skipws;
+			for (j = 0; j < b; j++) f >> A[i][j];
+			f << noskipws;
+			s = '!';
+			while (!f.eof() && s != '\n') f >> s;
+		}
+		return true;
 	}
 	f.close();
-	return true;
 }
 bool InM(int& m,unsigned a, fstream& g)
 {
@@ -210,6 +219,3 @@ int Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 	result = 1982370;
 	return result;
 }
-
-
-
