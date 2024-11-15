@@ -14,14 +14,15 @@ const unsigned N = 20, M = N;
 
 bool CalcSize( unsigned &a, unsigned *b, fstream& g);
 bool InpF( unsigned a, unsigned b, float A[N][M], fstream &g);
-void Out1(float A[N][M], unsigned a, unsigned b, fstream &g);
+void Out(float A[N][M], unsigned a, unsigned b, fstream &g);
 void OutStroke(unsigned b, fstream &g, float A[M]);
 int Process(float A[N][M], unsigned a, unsigned b);
-
+bool InM(int& m, unsigned a, fstream& g);
+bool InK(int& k, unsigned a, fstream& g);
 void main(void)
 {
 	setlocale(LC_ALL, "russian");
-	fstream g; float A[N][M]; unsigned a, b; char Name[20];
+	fstream g; float A[N][M]; unsigned a, b; char Name[20]; int m, k;
 	g.open("out.txt", ios::out);
 	if (!g.is_open()) cout << "File is not opened\n";
 	else
@@ -29,16 +30,46 @@ void main(void)
 		if (CalcSize( a, &b, g) == false)
 		{
 			cout << "Не удалось считать размер\n";
+			g << "Не удалось считать размер\n";
 		}
 		else
 		{
 			if (InpF( a, b, A, g) == false)
 			{
-				cout << "Ошибка обработки";
+				cout << "Ошибка обработки\n";
+				g << "Ошибка обработки\n";
 			}
 			else
 			{
-				Out1(A, a, b, g);
+				cout << "При вводе параметров m и k учитывайте, что исчисление столбцов и строк начинается с единицы.\n";
+				cout << "Также не забывайте, что вводимые значения должны быть целыми.\n";
+				g << "Задание:\nАвтор: Чучалин Иван Валентинович\tГруппа : 4354\tВерсия программы : 5\nДата начала : 07.11.24\tЗавершения : 00.11.24\n";
+				g << "При вводе параметров m и k учитывайте, что исчисление столбцов и строк начинается с единицы.\n";
+				g << "Также не забывайте, что вводимые значения должны быть целыми.\n";
+				g << "Ниже представлена обработанная матрица:\n";
+				Out(A, a, b, g);
+				cout << "Введите m\n";
+				cin >> m;
+				if (InM(m, a, g) == false)
+				{
+					cout << "Введены неправильные параметры обработки. Перезапустите программу.\n";
+					g << "Введены неправильные параметры обработки. Перезапустите программу.\n";
+				}
+				else
+				{
+					cout << "Введите k\n";
+					cin >> k;
+					if (InK(k, a, g) == false)
+					{
+						cout << "Введены неправильные параметры обработки. Перезапустите программу.\n";
+						g << "Введены неправильные параметры обработки. Перезапустите программу.\n";
+					}
+					else
+					{
+						g << "Введенное m: " << m << "\tВведенное k: " << k << "\n";
+						Process(A, a, b);
+					}
+				}
 			}
 		}
 	}
@@ -50,7 +81,7 @@ void OutStroke(unsigned b, fstream& g, float A[M])
 	for (i = 0; i < b; i++) g << A[i] << " ";
 	g << "\n";
 }
-void Out1(float A[N][M], unsigned a, unsigned b, fstream& g)
+void Out(float A[N][M], unsigned a, unsigned b, fstream& g)
 {
 	unsigned i;
 	for (i = 0; i < a; i++) OutStroke(b, g, A[i]);
@@ -141,7 +172,40 @@ bool InpF(unsigned a, unsigned b, float A[N][M], fstream& g)
 }
 int Process(float A[N][M], unsigned a, unsigned b)
 {
+	unsigned i, j; 
 	return 0;
+}
+bool InM(int& m,unsigned a, fstream& g)
+{
+	if (m-1 < 0)
+	{
+		cout << "Значение m не может быть меньше или равно нулю.\n";
+		g << "Введенное m: " << m << "\tЗначение m не может быть меньше или равно нулю.\n";
+		return false;
+	}
+	else if (m > a)
+	{
+		cout << "Значение m не может быть больше колличества столбцов.\n";
+		g << "Введенное m: " << m << "\tЗначение m не может быть больше колличества столбцов.\n";
+		return false;
+	}
+	else return true;
+}
+bool InK(int& k, unsigned a, fstream& g)
+{
+	if (k - 1 < 0)
+	{
+		cout << "Значение k не может быть меньше или равно нулю.\n";
+		g << "Введенное k: " << k << "\tЗначение k не может быть меньше или равно нулю.\n";
+		return false;
+	}
+	else if (k > a)
+	{
+		cout << "Значение k не может быть больше колличества строк.\n";
+		g << "Введенное k: " << k << "\tЗначение k не может быть больше колличества строк.\n";
+		return false;
+	}
+	else return true;
 }
 
 
