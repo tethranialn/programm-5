@@ -91,8 +91,8 @@ void main(void)
 					{
 						g << "Введенное m: " << m + 1 << "\tВведенное k: " << k + 1 << "\n";
 						Process(A, a, b, m, k, result);
-						cout << "Результат обработки массива: " << result << "\n";
-						g << "Результат обработки массива: " << result << "\n";
+						cout << "Наибольший эллемент массива: " << result << "\n";
+						g << "Наибольший эллемент массива: " << result << "\n";
 					}
 				}
 			}
@@ -248,7 +248,8 @@ bool InK(int& k, unsigned a, fstream& g)
 }
 float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	unsigned i = 0, j = m, z; int tmp1 = 0, tmp2 = 0, tmp3 = 0; float B[1000], temp; int x = -1;
+	unsigned i = 0, j = m, z, y; int tmp1, tmp2, tmp3; float B[1000], temp; int x = -1;
+	/*
 	do
 	{
 		for (i = 0; i < k + 1 + tmp3; i++)
@@ -283,8 +284,64 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 			if(tmp3<a) tmp3++;
 		}
 	} while (i+tmp3<=a);
-	temp = B[0];
+	*/
+	/*while (x)
+	{
+		while (i < k + 1 + tmp3)
+		{
+			j = m - tmp1;
+			while (j < a - tmp2)
+			{
+				x++;
+				B[x] = A[i + tmp3][j];
+				cout << B[x] << " ";
+				z = x;
+				j++;
+			}
+			cout << '\n';
+			i++;
+		}
+		tmp1++;
+		tmp2++;
+		tmp3 += k;
+	}
+	*/
+	
+	while (i < k + 1)
+	{
+		while (j < a)
+		{
+			x++;
+			B[x] = A[i][j];
+			cout << B[x] << " ";
+			z = x;
+			j++;
+		}
+		j = m;
+		i++;
+		cout << '\n';
+	}
+	i = k + 1;
+	j = m - 1;
+	a = a - 1;
+	k = k + k + 1;
+	while (i < k + 1)
+	{
+		while (j < a)
+		{
+			x++;
+			B[x] = A[i][j];
+			cout << B[x] << " ";
+			z = x;
+			j++;
+		}
+		j = m - 1;
+		i++;
+		cout << '\n';
+	}
+
 	x = 0;
+	temp = B[x];
 	while (x < z)
 	{
 		x++;
