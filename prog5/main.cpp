@@ -242,13 +242,13 @@ bool InK(int& k, unsigned a, fstream& g)
 	}
 	else
 	{
-		k--;
+		//k--;
 		return true;
 	}
 }
 float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	unsigned i = 0, j = m, z, y; int tmp1, tmp2, tmp3; float B[1000], temp; int x = -1;
+	int tmp1, tmp2, tmp3, t, v, i = 0, j = m, z, y; float B[1000], temp; int x = -1;
 	/*
 	do
 	{
@@ -306,40 +306,29 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 		tmp3 += k;
 	}
 	*/
-	
-	while (i < k + 1)
+	y = k;
+	while (i!=a)
 	{
-		while (j < a)
+		while (i < k)
 		{
-			x++;
-			B[x] = A[i][j];
-			cout << B[x] << " ";
-			z = x;
-			j++;
+			while (j < a)
+			{
+				x++;
+				B[x] = A[i][j];
+				cout << B[x] << " ";
+				z = x;
+				j++;
+			}
+			j = m;
+			i++;
+			cout << '\n';
 		}
-		j = m;
-		i++;
-		cout << '\n';
-	}
-	i = k + 1;
-	j = m - 1;
-	a = a - 1;
-	k = k + k + 1;
-	while (i < k + 1)
-	{
-		while (j < a)
+		for (t = 0; t < y; t++) k++;
+		if (k > a)
 		{
-			x++;
-			B[x] = A[i][j];
-			cout << B[x] << " ";
-			z = x;
-			j++;
+			k = a;
 		}
-		j = m - 1;
-		i++;
-		cout << '\n';
 	}
-
 	x = 0;
 	temp = B[x];
 	while (x < z)
