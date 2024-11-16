@@ -248,7 +248,7 @@ bool InK(int& k, unsigned a, fstream& g)
 }
 float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	unsigned i = 0, j = m; int tmp1 = 0, tmp2 = 0, tmp3 = 0; float B[1000], temp; int x = -1;
+	unsigned i = 0, j = m, z; int tmp1 = 0, tmp2 = 0, tmp3 = 0; float B[1000], temp; int x = -1;
 	do
 	{
 		for (i = 0; i < k + 1 + tmp3; i++)
@@ -258,6 +258,7 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 				x++;
 				B[x] = A[i+tmp3][j];
 				cout << B[x] << " ";
+				z = x;
 			}
 			cout << '\n';
 		}
@@ -283,9 +284,12 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 		}
 	} while (i+tmp3<=a);
 	temp = B[0];
-	for (x = 1; x < 0; x++)
+	x = 0;
+	while (x < z)
 	{
+		x++;
 		if (temp < B[x]) temp = B[x];
+		else result = temp;
 	}
 	return result;
 }
