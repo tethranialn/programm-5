@@ -247,7 +247,7 @@ bool InK(int& k, unsigned a, fstream& g)
 }
 float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
-	int tmp1, tmp2, tmp3, t, v, i = 0, j = m, z, y; float B[1000], temp; int x = -1;
+	int t, i = 0, j = m, z, y; float B[N*N], temp; int x = -1;
 	y = k;
 	while (i!=a)
 	{
