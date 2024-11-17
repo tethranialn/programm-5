@@ -1,6 +1,6 @@
 /*
   Автор: Чучалин Иван Валентинович  Группа: 4354  Версия программы: 5
-  Дата начала: 07.11.24  Завершения: 00.11.24
+  Дата начала: 07.11.24  Завершения: 17.11.24
   Задание: Найти наибольший элемент заштрихованной области таблицы вида:
 									m
 						  [ ][ ][ ][x][x][x][x] k
@@ -89,7 +89,8 @@ void main(void)
 					}
 					else
 					{
-						g << "Введенное m: " << m + 1 << "\tВведенное k: " << k + 1 << "\n";
+						g << "Введенное m: " << m << "\tВведенное k: " << k << "\n";
+						cout << "Визуализация обработки:\n";
 						Process(A, a, b, m, k, result);
 						cout << "Наибольший эллемент массива: " << result << "\n";
 						g << "Наибольший эллемент массива: " << result << "\n";
@@ -222,7 +223,6 @@ bool InM(int& m,unsigned a, fstream& g)
 	}
 	else
 	{
-		m--;
 		return true;
 	}
 }
@@ -242,87 +242,32 @@ bool InK(int& k, unsigned a, fstream& g)
 	}
 	else
 	{
-		//k--;
 		return true;
 	}
 }
 float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result)
 {
 	int tmp1, tmp2, tmp3, t, v, i = 0, j = m, z, y; float B[1000], temp; int x = -1;
-	/*
-	do
-	{
-		for (i = 0; i < k + 1 + tmp3; i++)
-		{
-			for (j = m - tmp1; j < a - tmp2; j++)
-			{
-				x++;
-				B[x] = A[i+tmp3][j];
-				cout << B[x] << " ";
-				z = x;
-			}
-			cout << '\n';
-		}
-		if (tmp1 != m)
-		{
-			tmp1++;
-		}
-		else
-		{
-			tmp1 = m - 1;
-		}
-		if (tmp2 != a)
-		{
-			tmp2++; 
-		}
-		else
-		{
-			tmp2 = a - 2;
-		}
-		for (i = 0; i < k+1; i++)
-		{
-			if(tmp3<a) tmp3++;
-		}
-	} while (i+tmp3<=a);
-	*/
-	/*while (x)
-	{
-		while (i < k + 1 + tmp3)
-		{
-			j = m - tmp1;
-			while (j < a - tmp2)
-			{
-				x++;
-				B[x] = A[i + tmp3][j];
-				cout << B[x] << " ";
-				z = x;
-				j++;
-			}
-			cout << '\n';
-			i++;
-		}
-		tmp1++;
-		tmp2++;
-		tmp3 += k;
-	}
-	*/
 	y = k;
 	while (i!=a)
 	{
+		m = m - 1;
+		if (m < 0) m = 0;
 		while (i < k)
 		{
-			while (j < a)
+			j = m;
+			while (j < b)
 			{
 				x++;
 				B[x] = A[i][j];
-				cout << B[x] << " ";
+				cout << B[x] << ' ';
 				z = x;
 				j++;
 			}
-			j = m;
 			i++;
 			cout << '\n';
 		}
+		b--;
 		for (t = 0; t < y; t++) k++;
 		if (k > a)
 		{
