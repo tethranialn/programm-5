@@ -47,6 +47,12 @@ void main(void)
 			}
 			else
 			{
+				if (raz == 1337)
+				{
+					cout << "Файл пуст.\n";
+					g << "Файл пуст.\n";
+					return;
+				}
 				cout << "При вводе параметров m и k учитывайте, что исчисление столбцов и строк начинается с единицы.\n";
 				cout << "Также не забывайте, что вводимые значения должны быть целыми, положительными и меньше или равны количеству строк/столбцов.\n\n";
 				cout << "			          m\n";
@@ -126,11 +132,19 @@ bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 	else
 	{
 		f >> temp;
-		if ((f.eof()) || (temp <= 0))
+		if (f.eof())
 		{
 			a = 0;
 			*b = 0;
-			raz = a;
+			raz = 1337;
+			return true;
+		}
+		if (temp <= 0)
+		{
+			a = 0;
+			*b = 0;
+			raz = temp;
+			return true;
 		}
 		else if (temp > N)
 		{
