@@ -268,9 +268,6 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 	{
 		m = m - 1;
 		if (m < 0) m = 0;
-		//i = 0;
-		//while (i < a)
-		//{
 			j = m;
 			while (j < b)
 			{
@@ -282,17 +279,10 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 			}
 			i++;
 			cout << '\n';
-		//}
 			if (i >= k)
 			{
 				b--;
 			}
-		/*for (t = 0; t < y; t++) k++;
-		if (k > a)
-		{
-			k = a;
-		}
-		*/
 	}
 	x = 0;
 	temp = B[x];
