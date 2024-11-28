@@ -17,7 +17,7 @@
 #include <locale>
 #include <math.h>
 using namespace std;
-const unsigned N = 20, M = N;
+const unsigned N = 10, M = N;
 bool CalcSize(unsigned &a, unsigned *b, fstream& g, int& raz);
 bool InpF(unsigned a, unsigned b, float A[N][M], fstream &g);
 void Out(float A[N][M], unsigned a, unsigned b, fstream &g);
@@ -154,7 +154,7 @@ bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 		else a = temp;
 		raz = a;
 		*b = a;
-		while (!f.eof() && s != '\n')
+		while ((!f.eof()) && (s != '\n'))
 		{
 			f << skipws;
 			f >> tmp;
@@ -168,10 +168,10 @@ bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 			{
 				size++;
 				f >> s;
-				while ((s == ' ' || s == '\t') && s != '\n' && !f.eof())
+				while ((s == ' ' || s == '\t') && (s != '\n') && (!f.eof()))
 				{
 					f >> s;
-					if (f.eof() || s == '\n')
+					if ((f.eof()) || (s == '\n'))
 					{
 						h++;
 						if (*b > size) *b = size;
@@ -179,7 +179,7 @@ bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 						s = '!';
 					}
 				}
-				if (s != '\n' || !f.eof())
+				if ((s != '\n') || (!f.eof()))
 				{
 					f.seekg(-1, ios::cur);
 					s = '!';
@@ -268,8 +268,9 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 	{
 		m = m - 1;
 		if (m < 0) m = 0;
-		while (i < k)
-		{
+		//i = 0;
+		//while (i < a)
+		//{
 			j = m;
 			while (j < b)
 			{
@@ -281,13 +282,17 @@ float Process(float A[N][M], unsigned a, unsigned b, int m, int k, float& result
 			}
 			i++;
 			cout << '\n';
-		}
-		b--;
-		for (t = 0; t < y; t++) k++;
+		//}
+			if (i >= k)
+			{
+				b--;
+			}
+		/*for (t = 0; t < y; t++) k++;
 		if (k > a)
 		{
 			k = a;
 		}
+		*/
 	}
 	x = 0;
 	temp = B[x];
