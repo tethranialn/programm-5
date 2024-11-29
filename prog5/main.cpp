@@ -149,10 +149,13 @@ bool CalcSize(unsigned& a, unsigned* b, fstream& g, int& raz)
 		else if (temp > N)
 		{
 			a = N;
+			raz = temp;
+		}
+		else
+		{
+			a = temp;
 			raz = a;
 		}
-		else a = temp;
-		raz = a;
 		*b = a;
 		while ((!f.eof()) && (s != '\n'))
 		{
